@@ -1,5 +1,5 @@
-import { baseAuth } from "./auth";
 import { redirect } from "next/navigation";
+import { baseAuth } from "./auth";
 
 export const auth = async () => {
   const session = await baseAuth();

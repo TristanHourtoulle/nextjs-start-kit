@@ -11,7 +11,7 @@ export default function Header() {
         <div className="flex items-center gap-1 font-semibold">
           <Image src="/Logo 2.svg" alt="Kaiboard" width={46} height={46} />
           <p className="hidden lg:flex text-md mr-2">Kaiboard</p>
-          <Badge text="Beta" />
+          <Badge text="v0.1.0" />
         </div>
         <div className="flex-1"></div>
         <ModeToggle />

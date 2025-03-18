@@ -34,4 +34,5 @@ export const {
   pages: {
     signIn: "/signin",
   },
+  trustHost: true,
 });
