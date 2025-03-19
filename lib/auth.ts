@@ -6,10 +6,10 @@ import Resend from "next-auth/providers/resend";
 import { prisma } from "./prisma";
 
 const providers: Provider[] = [
+  GitHub,
   Resend({
     from: "no-reply@company.com",
   }),
-  GitHub,
 ];
 
 export const providerMap = providers
