@@ -1,7 +1,6 @@
 "use client";
 
 import { deleteMeeting, getMeetingsFromUser } from "@/app/meeting-action";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -12,6 +11,7 @@ import {
 import { MeetingFilter } from "@/lib/types/meeting";
 import { User } from "next-auth";
 import { useEffect, useState } from "react";
+import { MeetingCard } from "./MeetingCard";
 
 export type MeetingsSectionProps = {
   user: User;
@@ -46,17 +46,6 @@ export const MeetingsSection = ({ user }: MeetingsSectionProps) => {
     MeetingFilter["Upcoming meeting"]
   );
 
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteMeeting(id, user);
-      setMeetings((prevMeetings) =>
-        prevMeetings.filter((meeting) => meeting.id !== id)
-      );
-    } catch (error) {
-      console.error("Failed to delete meeting", error);
-    }
-  };
-
   const handleFilterChange = (filter: string) => {
     setFilterMeeting(filter);
     setMeetings(filterMeetingsFunction(filter));
@@ -84,23 +73,7 @@ export const MeetingsSection = ({ user }: MeetingsSectionProps) => {
       <section className="mt-2 w-full flex items-center justify-start gap-4 flex-wrap">
         {meetings.length > 0 &&
           meetings.map((meeting) => (
-            <div
-              key={meeting.id}
-              className="flex flex-col w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 gap-2 p-3 rounded-md border border-border"
-            >
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-md font-semibold">{meeting.title}</p>
-                <p className="text-md text-muted-foreground">
-                  {meeting.start.toDateString()}
-                </p>
-              </div>
-              <Button
-                onClick={() => handleDelete(meeting.id)}
-                variant="destructive"
-              >
-                Delete
-              </Button>
-            </div>
+            <MeetingCard key={meeting.id} meeting={meeting} user={user} />
           ))}
         {meetings.length === 0 && (
           <section className="mt-4 flex w-full items-center justify-center">
